@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getComputerChoice() {
+            let randomNumber = Math.floor(Math.random() * 3);
+            let computerChoice = "pierre";
+            if (randomNumber == 1) {
+                computerChoice = "feuille";
+            } else if (randomNumber == 2) {
+                computerChoice = "ciseaux"
+            }
+            return computerChoice;
+        }
+
+        function getHumanChoice() {
+            return prompt("Choose between 'pierre', 'feuille' or 'ciseaux'","");
+        }
+
+        function resolveGame(computerChoice,humanChoice) {
+            let winner = "Computer"
+            if (computerChoice == humanChoice) {
+                winner = "no winner";
+            } else if (computerChoice == "pierre" && humanChoice == "feuille") {
+                winner = "Human";
+            } else if (computerChoice == "feuille" && humanChoice == "ciseaux") {
+                winner = "Human";
+            } else if (computerChoice == "ciseaux" && humanChoice == "pierre") {
+                winner = "Human";
+            }
+            return winner;
+        }
+
+        function promptGame(computerChoice,humanChoice) {
+            console.log("Computer chose " + computerChoice + ".");
+            console.log("Human chose " + humanChoice + ".");
+        }
+
+        function promptWinner(winner) {
+            console.log("And the winner is... " + winner + "!")
+        }
+
+        let computerChoice = getComputerChoice();
+        let humanChoice = getHumanChoice();
+        if (humanChoice !== "pierre" || humanChoice !== "feuille" || humanChoice !== "ciseaux") {
+            promptGame(computerChoice,humanChoice);
+            promptWinner(resolveGame(computerChoice,humanChoice));
+        } else {
+            console.log("Human don't want to play the game.");
+        }
+
+    </script>
+</body>
+</html>
