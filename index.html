@@ -47,7 +47,7 @@
 
         let computerChoice = getComputerChoice();
         let humanChoice = getHumanChoice();
-        if (humanChoice !== "pierre" || humanChoice !== "feuille" || humanChoice !== "ciseaux") {
+        if (humanChoice == "pierre" || humanChoice == "feuille" || humanChoice == "ciseaux") {
             promptGame(computerChoice,humanChoice);
             promptWinner(resolveGame(computerChoice,humanChoice));
         } else {
