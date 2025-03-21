@@ -8,7 +8,7 @@
 <body>
     <script>
         function getComputerChoice() {
-            let randomNumber = Math.floor(Math.random() * 3);
+            const randomNumber = Math.floor(Math.random() * 3);
             let computerChoice = "pierre";
             if (randomNumber == 1) {
                 computerChoice = "feuille";
@@ -23,9 +23,16 @@
         }
 
         function resolveGame(computerChoice,humanChoice) {
+            return winner;
+        }
+
+        function playRound(humanChoice, computerChoice) {
+            console.log("Computer chose " + computerChoice + ".");
+            console.log("Human chose " + humanChoice + ".");
+
             let winner = "Computer"
             if (computerChoice == humanChoice) {
-                winner = "no winner";
+                winner = "nobody";
             } else if (computerChoice == "pierre" && humanChoice == "feuille") {
                 winner = "Human";
             } else if (computerChoice == "feuille" && humanChoice == "ciseaux") {
@@ -33,27 +40,31 @@
             } else if (computerChoice == "ciseaux" && humanChoice == "pierre") {
                 winner = "Human";
             }
+            console.log("And the winner is of the round is " + winner + "!")
             return winner;
         }
 
-        function promptGame(computerChoice,humanChoice) {
-            console.log("Computer chose " + computerChoice + ".");
-            console.log("Human chose " + humanChoice + ".");
+        function playGame() {
+            let humanScore = 0;
+            let computerScore = 0;
+            for (let i = 0; i < 5; i++) {
+                let computerChoice = getComputerChoice();
+                let humanChoice = getHumanChoice();
+                let winnerRound = playRound(humanChoice, computerChoice);
+                if (winnerRound == "Computer") {
+                    computerScore += 1;
+                } else if (winnerRound == "Human") {
+                    humanScore += 1;
+                }
+            }
+            let winnerGame = "";
+            humanScore == computerScore ? winnerGame = "nobody" :
+            humanScore > computerScore ? winnerGame = "Human" : winnerGame = "Computer";
+            
+            console.log("The winner of the game is " + winnerGame + ".")
         }
 
-        function promptWinner(winner) {
-            console.log("And the winner is... " + winner + "!")
-        }
-
-        let computerChoice = getComputerChoice();
-        let humanChoice = getHumanChoice();
-        if (humanChoice == "pierre" || humanChoice == "feuille" || humanChoice == "ciseaux") {
-            promptGame(computerChoice,humanChoice);
-            promptWinner(resolveGame(computerChoice,humanChoice));
-        } else {
-            console.log("Human don't want to play the game.");
-        }
-
+        playGame();
     </script>
 </body>
 </html>
