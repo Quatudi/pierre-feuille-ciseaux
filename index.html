@@ -1,12 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <div id="text"></div>
     <script>
+        let rock_btn = document.querySelector('#rock');
+        let paper_btn = document.querySelector('#paper');
+        let scissors_btn = document.querySelector('#scissors');
+        let div = document.querySelector('#text');
+
+        let humanScore = 0;
+        let computerScore = 0;
+
         function getComputerChoice() {
             const randomNumber = Math.floor(Math.random() * 3);
             let computerChoice = "pierre";
@@ -19,52 +33,45 @@
         }
 
         function getHumanChoice() {
-            return prompt("Choose between 'pierre', 'feuille' or 'ciseaux'","");
+            return prompt("Choose between 'pierre', 'feuille' or 'ciseaux'", "");
         }
 
-        function resolveGame(computerChoice,humanChoice) {
-            return winner;
-        }
+        function playRound(humanChoice) {
+            let computerChoice = getComputerChoice();
 
-        function playRound(humanChoice, computerChoice) {
-            console.log("Computer chose " + computerChoice + ".");
-            console.log("Human chose " + humanChoice + ".");
+            div.innerText = "Computer chose " + computerChoice + ". \n";
+            div.innerText += "Human chose " + humanChoice + ". \n";
 
             let winner = "Computer"
             if (computerChoice == humanChoice) {
                 winner = "nobody";
             } else if (computerChoice == "pierre" && humanChoice == "feuille") {
                 winner = "Human";
+                humanScore++;
             } else if (computerChoice == "feuille" && humanChoice == "ciseaux") {
                 winner = "Human";
+                humanScore++;
             } else if (computerChoice == "ciseaux" && humanChoice == "pierre") {
                 winner = "Human";
+                humanScore++;
+            } else {
+                computerScore++;
             }
-            console.log("And the winner is of the round is " + winner + "!")
-            return winner;
+            div.innerText += "And the winner is of the round is " + winner + "! \n";
+            div.innerText += "Computer's score : " + computerScore + "\n";
+            div.innerText += "Human's score : " + humanScore + "\n";
+
+            if (computerScore == 5) {
+                div.innerText += "The winner is Computer!";
+            } else if (humanScore == 5) {
+                div.innerText += "The winner is Human!";
+            }
         }
 
-        function playGame() {
-            let humanScore = 0;
-            let computerScore = 0;
-            for (let i = 0; i < 5; i++) {
-                let computerChoice = getComputerChoice();
-                let humanChoice = getHumanChoice();
-                let winnerRound = playRound(humanChoice, computerChoice);
-                if (winnerRound == "Computer") {
-                    computerScore += 1;
-                } else if (winnerRound == "Human") {
-                    humanScore += 1;
-                }
-            }
-            let winnerGame = "";
-            humanScore == computerScore ? winnerGame = "nobody" :
-            humanScore > computerScore ? winnerGame = "Human" : winnerGame = "Computer";
-            
-            console.log("The winner of the game is " + winnerGame + ".")
-        }
-
-        playGame();
+        rock_btn.addEventListener("click", () => playRound('pierre'));
+        paper_btn.addEventListener("click", () => playRound('feuille'));
+        scissors_btn.addEventListener("click", () => playRound('ciseaux'));
     </script>
 </body>
+
 </html>
